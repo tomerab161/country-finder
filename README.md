@@ -14,6 +14,20 @@ npm run seed
 
 The server listens on `http://localhost:3000` by default.
 
+## Docker
+
+Build and run the API container:
+
+```sh
+docker build -t country-finder .
+docker run --rm -p 3000:3000 \
+	-e MONGODB_URI=mongodb://host.docker.internal:27017 \
+	-e MONGODB_DATABASE=country-finder \
+	country-finder
+```
+
+The container expects MongoDB to be available through `MONGODB_URI`.
+
 MongoDB connection settings can be configured with `MONGODB_URI`, `MONGODB_DATABASE`, and `MONGODB_COUNTRIES_COLLECTION`. The `countries` collection must contain `countryCode`, `countryName`, and GeoJSON `area` fields, with a `2dsphere` index on `area`.
 
 With MongoDB running locally, seed the collection with:
